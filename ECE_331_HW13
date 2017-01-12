@@ -1,0 +1,92 @@
+# Joseph Garcia
+# ECE 331 Sheaff
+# Homework 13
+# 4/30/15
+1.
+
+$ sqlite3 passwds.db
+> CREATE TABLE passwds(name text, password text, uid integer, gid integer, gecos blob, dir text, shell text);
+>.separator ":"  # add semicolon?
+> .import /etc/passwd passwds # add semicolon?
+
+
+2. In this cron job, the command /home/pi/bin/log_temp is run on April 25th and every Thursday in April. At midnight (0:00 in 24 Hr time)and 12:00 noon of that day, the job will be run every 6 minutes starting from 0:00/12:00 and going to 0:29/12:29.
+
+3.
+
+a.) 
+Locking is necessary in the kernel driver so that race conditions can be avoided.
+
+b.)For the kernel driver, the most appropriate locking mechanism was found to be the mutex semaphore, which allows only mutual exclusivity for programs needing to access critical sections. This is exactly what the specifications of our design request dictated, and the mutex had the additional benefit of putting waiting processes to sleep,avoiding the CPU time wasted with spin locks.
+
+
+4.
+
+a.) I would first check /etc/passwd to see if any changes were made to the file (using a backup copy that had been created the day before for comparison). Since information was compromised regardless, I need to report the intrusion to my supervisor so that an appropriate response can be taken. This editing of /etc/passwd may not be the only thing that could have happened to the system, so I need to check other logs to determine specific events. If I were very paranoid, I could deny connections by all remote hosts until the situation was deemed to be unde control/resolved.
+
+b.) I would add 45.6.3.89 to the hosts.deny file (assuming my SSH supported TCP Wrappers). I have heard that TCP Wrappers are deprecated, so I could instead use an iptables command to block Adam's IP, e.g. iptables -A INPUT -s 45.6.3.89 -j DROP. Since sensitive data was possibly leaked and peoples' information is compromised, I would alert my supervisor, who can perform an investigation (perhaps Adam's password was discovered and a malicious user did the operation rather than Adam). Nevertheless, I would remove Adam from the sudoers group so that he does not have sudo privileges.
+
+5.
+
+Routing Table for Marco:
+
+NETWORK		GATEWAY		GENMASK			INTERFACE
+
+1.2.3.0		0.0.0.0		255.255.255.0	ETHO
+10.0.0.0    0.0.0.0		255.0.0.0		ETH2
+9.8.0.0     0.0.0.0		255.255.0.0		ETH1
+0.0.0.0		9.8.7.5		0.0.0.0			ETH1
+127.0.0.0   0.0.0.0		255.0.0.0		lo
+
+6.
+
+Group	    Network_Address	   Broadcast_Address  Netmask	        Total_Addresses
+DSP	        10.0.0.0           10.0.127.255	      255.255.128.0     32768, 32766 usable
+Controls    10.0.128.0         10.0.191.255       255.255.192.0		16384, 16382 usable
+Electronics 10.0.192.0		   10.0.255.255		  255.255.192.0		16384, 16382 usable
+
+
+7. 
+/home	45.32.0.0/30(rw,sync,no_subtree_check)
+		# Other options could be used, including 
+		# squash_all, async instead of sync, etc.
+
+8. (MAYBE REVISE)
+
+# Writing the complete PHP code below
+<?php
+function table($w, $h)
+{
+	print "<TABLE BORDER=1\n>";
+	for ($i = 0; $i < $h; $i++) {
+		print "<TR>";
+		for ($j = 0;$j < $w;$j++) {
+			print "<TH> ";
+		}		
+		print "</TR>";
+	}
+	print "</TABLE>\n";
+}
+?>
+
+9.  
+
+#!/usr/bin/python
+
+import numpy
+import math
+
+times = numpy.linspace(0,0.05,2000)
+Vx = numpy.cos(100*times)  // note: Python expects this to be in rads
+
+10.
+
+Network (DDN)	IP (DDN)	Netmask (CIDR)	Broadcast (DDN)
+10.128.0.0		10.129.4.5	/13			    10.135.255.255
+172.81.32.0		172.81.32.1 /20 			172.81.47.255
+
+11.
+
+I would tell myself to become more comfortable with doing bitwise math. IPCalc is a lifesaver for this kind of work, but it is not available during tests!
+
+

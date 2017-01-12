@@ -1,0 +1,102 @@
+Joseph Garcia
+ECE 331
+January 21, 2015
+Homework 1
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+1. Tutorials completed and notes read from both listed
+URLs.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+2a. 
+# include <stdio.h> /* for general purpose input and output */
+# include <stdlib.h> /* allows C-program to communicate (share information) with shell environment */
+
+/*This program prints out all passed command line args*/
+
+int main(int argc, char *argv[]) {
+	int i = 0;    
+/* initialization of the counter which will 
+ * iterate my reading through the command 
+ * line arguments */
+	for (i = 0; i < argc; i++) {
+		printf("%s\n", argv[i]); 
+	} 
+	/* Prints each char array pointed to by argv[i] */
+	return 0;
+	/* 0 means successful program execution */
+}
+
+2b. Compiled with gcc -o Print_CL_args -Wall -g Print_CL_args.c 
+
+2c. ./Print_CL_args "The Maze Runner.mp4"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+3. 
+# include <stdio.h> /* for general purpose input and output */
+# include <stdlib.h>  /* allows C-program to communicate (share information) with shell environment */
+
+int main(int argc, char *argv[]) {
+
+	/* command arguments go in as $ ./create_2D_array #_of_Rows #_of_Columns */
+
+	int num_of_cols = atoi(argv[1]); /*convert char arrays (strings) to integers so that a 2D array can be created.*/
+	int num_of_rows = atoi(argv[2]);  
+	
+	int i = 0;   /*generic counting variable for 1st dimension of 2D array*/
+	int j = 0;  /*generic counting variable for the 2nd dimension of the array*/
+	
+	double ** ptr;  /* create the seed pointer for the 2D array*/
+
+	ptr = (double **)malloc(num_of_cols*sizeof(double *));  
+	/* ptr is a pointer to a 1D array consisting of (num_of_cols) double pointers */
+
+	for ( i = 0; i < num_of_cols; i++) {
+		ptr[i] = (double *)malloc(num_of_rows*sizeof(double )); 
+	}    /*each index of the 1D array is made to be a pointer to another 1D array, thereby establishing a 2D array of doubles */
+
+	
+	for (i = 0; i < num_of_cols; i++) {
+		for (j = 0; j < num_of_rows; j++) {
+			ptr[i][j] = 0;
+			printf(" %f ", ptr[i][j]); 	
+		}
+		printf("\n");
+	}  /* Printing out the matrix so you can see that the matrix is created. */
+
+	free(ptr);	/* free the memory allocated in the malloc statement */
+	return 0;      /* successful program execution code, since this is an integer returning function. */
+}
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+4. mv ../XYZ Potter/"The Maze Runner.mp4"
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+5a. $ grep='grep -e'    
+	(This only lives for the life of the current shell session)
+
+5b. 1. $ vi ~/.bashrc
+    2. Uncomment the section that looks like so (if it is not already uncommented):
+	if [ -f ~/.bash_aliases ]; then
+	. ~/.bash_aliases   /* If the .bash_aliases file exists, then the shell will recognize and run it. */
+	fi
+	/* .bash_aliases is the personal initialization file that can contain a grep alias. There is already a grep alias in .bashrc, though */
+    3,option a, part 1. modify file so that grep alias is as follows: alias grep='grep --color=auto -e' 
+	then :wq from ~/.bashrc.
+    3,option a, part 2. $ source ~/.bashrc       (allows the new script to run in the current shell)
+
+    3, option b, part 1. :wq from ~/.bashrc
+    3, option b, part 2. $ vi ~/.bash_aliases
+    3, option b, part 3. add this text to the file: alias grep='grep -e'  (other options can be added if desired)
+    3, option b, part 4. :wq from ~/.bash_aliases
+    3, option b, part 5. $ source ~/.bash_aliases
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+6a. ls -l ?(???) ?(???) ?(?????) | wc -l
+
+6b. 247
